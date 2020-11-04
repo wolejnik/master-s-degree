@@ -1,5 +1,6 @@
 from scipy import optimize, cluster
 from scipy.optimize import fsolve
+import numpy as np
 
 
 def main():
@@ -35,7 +36,20 @@ def main():
     result_max = optimize.minimize(max, (-1, 0), method='SLSQP', constraints=cons)
     print(f' Result minimum : {result_min.fun}, result maximum : {result_max.fun}' )
 
+    # Zadanie 3
 
+    def min2(x):
+        return -(np.sqrt(4 - x[0] ** 2 - x[1] ** 2))
+
+    def max2(x):
+        return np.sqrt(4 - x[0] ** 2 - x[1] ** 2)
+
+    cons = (
+        {'type':'ineq', 'fun': lambda x: 4-x[0] ** 2-x[1] ** 2}
+    )
+    result_min_2 = optimize.minimize(min2, (0, 1), method='SLSQP', constraints=cons)
+    result_max_2 = optimize.minimize(max2, (-2, 0), method='SLSQP', constraints=cons)
+    print(f' Result minimum 2: {result_min_2.fun}, result maximum 2: {result_max_2.fun}' )
 
     return 0
 
