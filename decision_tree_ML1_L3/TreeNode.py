@@ -11,16 +11,13 @@ class Node:
         self.left = None
         self.right = None
 
-    def debug(self, feature_names, class_names, show_details):
-        """Print an ASCII visualization of the tree."""
-        lines, _, _, _ = self._debug_aux(
-            feature_names, class_names, show_details, root=True
-        )
+    def debug(self, feature_names, class_names):
+        lines, _, _, _ = self._debug_aux(feature_names, class_names, root=True)
         for line in lines:
             print(line)
 
-    def _debug_aux(self, feature_names, class_names, show_details, root=False):
-        # See https://stackoverflow.com/a/54074933/1143396 for similar code.
+    def _debug_aux(self, feature_names, class_names, root=False):
+        # https://stackoverflow.com/a/54074933/1143396
         is_leaf = not self.right
         if is_leaf:
             lines = [class_names[self.predicted_class]]
@@ -28,12 +25,11 @@ class Node:
             lines = [
                 "{} < {:.2f}".format(feature_names[self.feature_index], self.threshold)
             ]
-        if show_details:
-            lines += [
-                "gini = {:.2f}".format(self.gini),
-                "samples = {}".format(self.num_samples),
-                str(self.num_samples_per_class),
-            ]
+        lines += [
+            "gini = {:.2f}".format(self.gini),
+            "samples = {}".format(self.num_samples),
+            str(self.num_samples_per_class),
+        ]
         width = max(len(line) for line in lines)
         height = len(lines)
         if is_leaf:
@@ -53,8 +49,8 @@ class Node:
             return lines, width, height, middle
 
         # If not a leaf, must have two children.
-        left, n, p, x = self.left._debug_aux(feature_names, class_names, show_details)
-        right, m, q, y = self.right._debug_aux(feature_names, class_names, show_details)
+        left, n, p, x = self.left._debug_aux(feature_names, class_names)
+        right, m, q, y = self.right._debug_aux(feature_names, class_names)
         top_lines = [n * " " + line + m * " " for line in lines[:-2]]
         # fmt: off
         middle_line = x * " " + "┌" + (n - x - 1) * "─" + lines[-2] + y * "─" + "┐" + (m - y - 1) * " "
