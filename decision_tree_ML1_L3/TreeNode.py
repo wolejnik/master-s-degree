@@ -1,22 +1,26 @@
-class Node:
-    """A decision tree node."""
+import numpy as np
 
-    def __init__(self, gini, num_samples, num_samples_per_class, predicted_class):
+
+class Node:
+    def __init__(self, gini, number_samples, number_samples_per_class, predicted_class):
         self.gini = gini
-        self.num_samples = num_samples
-        self.num_samples_per_class = num_samples_per_class
+        self.number_samples = number_samples
+        self.number_samples_per_class = number_samples_per_class
         self.predicted_class = predicted_class
         self.feature_index = 0
         self.threshold = 0
         self.left = None
         self.right = None
 
-    def debug(self, feature_names, class_names):
-        lines, _, _, _ = self._debug_aux(feature_names, class_names, root=True)
+    def debug(self, feature_names, class_names, show_details):
+        """Print an ASCII visualization of the tree."""
+        lines, _, _, _ = self._debug_aux(
+            feature_names, class_names, show_details, root=True
+        )
         for line in lines:
             print(line)
 
-    def _debug_aux(self, feature_names, class_names, root=False):
+    def _debug_aux(self, feature_names, class_names, show_details, root=False):
         # https://stackoverflow.com/a/54074933/1143396
         is_leaf = not self.right
         if is_leaf:
@@ -25,11 +29,12 @@ class Node:
             lines = [
                 "{} < {:.2f}".format(feature_names[self.feature_index], self.threshold)
             ]
-        lines += [
-            "gini = {:.2f}".format(self.gini),
-            "samples = {}".format(self.num_samples),
-            str(self.num_samples_per_class),
-        ]
+        if show_details:
+            lines += [
+                "gini = {:.2f}".format(self.gini),
+                "samples = {}".format(self.number_samples),
+                str(self.number_samples_per_class),
+            ]
         width = max(len(line) for line in lines)
         height = len(lines)
         if is_leaf:
@@ -45,12 +50,12 @@ class Node:
 
         if is_leaf:
             middle = width // 2
-            lines[0] = lines[0][:middle] + "╧" + lines[0][middle + 1 :]
+            lines[0] = lines[0][:middle] + "╧" + lines[0][middle + 1:]
             return lines, width, height, middle
 
         # If not a leaf, must have two children.
-        left, n, p, x = self.left._debug_aux(feature_names, class_names)
-        right, m, q, y = self.right._debug_aux(feature_names, class_names)
+        left, n, p, x = self.left._debug_aux(feature_names, class_names, show_details)
+        right, m, q, y = self.right._debug_aux(feature_names, class_names, show_details)
         top_lines = [n * " " + line + m * " " for line in lines[:-2]]
         # fmt: off
         middle_line = x * " " + "┌" + (n - x - 1) * "─" + lines[-2] + y * "─" + "┐" + (m - y - 1) * " "
@@ -62,11 +67,11 @@ class Node:
             right += [m * " "] * (p - q)
         zipped_lines = zip(left, right)
         lines = (
-            top_lines
-            + [middle_line, bottom_line]
-            + [a + width * " " + b for a, b in zipped_lines]
+                top_lines
+                + [middle_line, bottom_line]
+                + [a + width * " " + b for a, b in zipped_lines]
         )
         middle = n + width // 2
         if not root:
-            lines[0] = lines[0][:middle] + "┴" + lines[0][middle + 1 :]
+            lines[0] = lines[0][:middle] + "┴" + lines[0][middle + 1:]
         return lines, n + m + width, max(p, q) + 2 + len(top_lines), middle
