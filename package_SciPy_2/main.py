@@ -14,8 +14,8 @@ def interpoluj_kNN(xi, x, y, k):
 
     pass
 
-# Zadanie 1
-def interpoluj_kNN(x, xc, yc, k):
+# Zadanie 2
+def klasyfikuj_kNN(x, xc, yc, k):
     """
 
     @param x: wartość, dla ktorej chcemy dokonac klasyfikacji
@@ -25,14 +25,13 @@ def interpoluj_kNN(x, xc, yc, k):
     @return res : najczestsza klase sposrod k najbliszych sasiadow
     """
 
-    pass
+    tree = spatial.KDTree(xc)
+    distances_neig, indexes_neig = tree.query(x, k)
+    unique_neig, unique_indexes_neig = np.unique(yc[indexes_neig], return_counts=True)
+    max_unique_indexes_neig = np.argmax(unique_indexes_neig)
+    return unique_neig[max_unique_indexes_neig]
 
 if __name__ == "__main__":
     print()
 
 
-    # tree = spatial.KDTree(xc)
-    # distances_neig, indexes_neig = tree.query(x, k)
-    # unique_neig, unique_indexes_neig = np.unique(y[indexes_neig], return_counts=True)
-    # max_unique_indexes_neig = np.argmax(unique_indexes_neig)
-    # return unique_neig[max_unique_indexes_neig]
