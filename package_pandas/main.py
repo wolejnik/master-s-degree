@@ -8,12 +8,11 @@ Utwórz obiekt DataFrame z czterema kolumnami o nazwach: ’a’, ’b’, ’c�
 cem wierszy, wypełniony liczbami losowymi o rozkładzie normalnym N (0, 1).
 """
 
-columns = ['a', 'b', 'c', 'd']
-df = pd.DataFrame(dict(a=np.random.normal(0, 1, size=1000),
-                       b=np.random.normal(0, 1, size=1000),
-                       c=np.random.normal(0, 1, size=1000),
-                       d=np.random.normal(0, 1, size=1000)),
-                  columns=columns)
+df = pd.DataFrame({'$a':np.random.normal(0, 1, size=1000),
+                   '$b': np.random.normal(0, 1, size=1000),
+                   "$c": np.random.normal(0, 1, size=1000),
+                   "$d": np.random.normal(0, 1, size=1000)})
+df.columns = ['a', 'b', 'c', 'd']
 
 print(df)
 
