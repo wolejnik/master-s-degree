@@ -8,18 +8,28 @@ Utwórz obiekt DataFrame z czterema kolumnami o nazwach: ’a’, ’b’, ’c�
 cem wierszy, wypełniony liczbami losowymi o rozkładzie normalnym N (0, 1).
 """
 
-df = pd.DataFrame({'$a':np.random.normal(0, 1, size=1000),
+df = pd.DataFrame({'$a': np.random.normal(0, 1, size=1000),
                    '$b': np.random.normal(0, 1, size=1000),
                    "$c": np.random.normal(0, 1, size=1000),
                    "$d": np.random.normal(0, 1, size=1000)})
 df.columns = ['a', 'b', 'c', 'd']
 
-print(df)
+# print(df)
 
 # Zadanie 1.1
+""" określą liczbę wszystkich elementów o wartościach spoza przedziału [−2, 2]; """
+
+count_items_column = df[(df < -2) | (df > 2)].count()
+count_items_all = count_items_column.sum()
+print(f'\nLiczba elementów o wartosciach spoza przedziału [-2, 2]: {count_items_all}\n')
 
 # Zadanie 1.2
+""" określą liczbę elementów o wartościach spoza przedziału [−2, 2] w każdej kolumnie; """
+
+print(f'Liczba elementów o wartosciach spoza przedziału [-2, 2] dla każdej kolumny :\n{count_items_column}\n')
 
 # Zadanie 1.3
+""" usuną wszystkie wiersze, w których występuje przynajmniej jeden element spoza przedziału [−2, 2]; """
 
 # Zadanie 1.4
+""" zamienią wszystkie elementy ujemne na kwadrat ich wartości; """
