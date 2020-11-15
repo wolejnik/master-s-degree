@@ -1,5 +1,8 @@
 import numpy as np
 import pandas as pd
+import pandas as pd
+from io import StringIO
+from scipy.io import arff
 
 # Zadanie 1
 
@@ -41,3 +44,27 @@ print(f'Obiekt z usuniętymi wierszami, w których wystęouje przynajmniej jeden
 
 non_negative_items = df.applymap(lambda x: x**2 if x < 0 else x)
 print(f'Obiekt z zamienionymi elementami ujemnymi na kwadrat ich wartości:\n{non_negative_items}\n')
+
+
+# Zadanie 2
+
+data, meta = arff.loadarff(StringIO('supermarket.arff'))
+df1 = pd.DataFrame(data).select_dtypes([np.object]).stack().str.decode('utf-8').unstack()
+
+# Zadanie 2.1
+""" Określ ile jest próbek w pliku i ile z nich posiada brakujące wartości """
+
+print(f'Liczba próbek w pliku:\n{df1.shape[0]}\n')
+print(f'Liczba próbek z brakującymi wartościami:\n{df1.shape[0] - df1[df1 != "?"].dropna().shape[0]}\n')
+
+# Zadanie 2.2
+""" Określ ile próbek posiada 1 brakującą wartość, 2 brakujące wartości, . . . N
+brakujących wartości (gdzie N to ilość atrybutów) """
+
+df_missing = np.vstack((np.unique((df1=='?').sum(axis=1), return_counts=True)))
+for i in range(df_missing.shape[1]):
+    print(f'W próbce numer :{df_missing[1, i]} - brakuje {df_missing[0, i]} próbek.\n')
+#
+# df_missing1 = df1[df1 == '?'].count()
+# print(f'Ilość kolumn z brakujacymi wartosciami:\n{df_missing1[df_missing1>0].count()}')
+# print(f'Nazwy kolumn i ilość brakujących wartości:\n{df_missing1[df_missing1 > 0]}')
