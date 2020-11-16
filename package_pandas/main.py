@@ -64,7 +64,11 @@ brakujących wartości (gdzie N to ilość atrybutów) """
 df_missing = np.vstack((np.unique((df1=='?').sum(axis=1), return_counts=True)))
 for i in range(df_missing.shape[1]):
     print(f'W próbce numer :{df_missing[1, i]} - brakuje {df_missing[0, i]} próbek.\n')
-#
-# df_missing1 = df1[df1 == '?'].count()
-# print(f'Ilość kolumn z brakujacymi wartosciami:\n{df_missing1[df_missing1>0].count()}')
-# print(f'Nazwy kolumn i ilość brakujących wartości:\n{df_missing1[df_missing1 > 0]}')
+
+
+# Zadanie 2.3
+""" Określ w ilu kolumnach występują brakujące wartości. Wypisz ich nazwy i liczby braków"""
+
+df_missing_values = df1[df1 == '?'].count()
+print(f'Ilość kolumn z brakujacymi wartosciami:\n{df_missing_values[df_missing_values>0].count()}\n')
+print(f'Nazwy kolumn i ilość brakujących wartości:\n{df_missing_values[df_missing_values > 0]}\n')
