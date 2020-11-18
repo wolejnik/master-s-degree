@@ -110,4 +110,4 @@ if __name__ == "__main__":
     print(feature_names.columns)
     clf.print_tree(feature_names.columns, target_names, True)
 
-    export_graphviz(clf, feature_names.columns, target_names)
+    
