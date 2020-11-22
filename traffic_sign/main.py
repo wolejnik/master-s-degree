@@ -1,10 +1,12 @@
 import numpy as np
 import cv2
 import glob
-import itertools
 
-def remove_background(image, folder):
-    print(f'remove_background')
+
+def remove_background(image):
+    """
+    :param image: image from which will remove the background
+    """
     cv2.namedWindow(image, cv2.WINDOW_NORMAL)
 
     # Load the Image
@@ -36,7 +38,12 @@ def remove_background(image, folder):
     # To be done - Smoothening the edges
     cv2.imwrite(f'{image}_not_bg.png', final)
 
+
 def getFilenames(folder):
+    """
+    :param folder: selected name folder of which  loading a files
+    :return: array with names files of which  selected a folder
+    """
     filenames = [img for img in glob.glob(f'data/{folder}/*.png')]
     filenames.sort()
 
@@ -50,8 +57,8 @@ def getFilenames(folder):
 
 if __name__ == "__main__":
 
-    images = getFilenames('sign_4')
+    images = getFilenames('sign_11')
     print(images)
-    # for image in iamges:
-        # remove_background(image, 'sign_3')
-        # print(f'FINISHED : {image} ')
+    for image in images:
+        remove_background(image)
+        print(f'FINISHED : {image} ')
