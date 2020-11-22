@@ -35,16 +35,9 @@ def remove_background(image, folder):
 
     # To be done - Smoothening the edges
     cv2.imwrite(f'{image}_not_bg.png', final)
-    cv2.imshow('image', final)
-    #
-    # k = cv2.waitKey(0)
-    #
-    # if k == 27:
-    #     cv2.destroyAllWindows()
 
-
-def getFilenames():
-    filenames = [img for img in glob.glob("data/sign_3/*.png")]
+def getFilenames(folder):
+    filenames = [img for img in glob.glob(f'data/{folder}/*.png')]
     filenames.sort()
 
     images = []
@@ -57,7 +50,8 @@ def getFilenames():
 
 if __name__ == "__main__":
 
-    iamges = getFilenames()
-    for image in iamges:
-        remove_background(image, 'sign_3')
+    images = getFilenames('sign_4')
+    print(images)
+    # for image in iamges:
+        # remove_background(image, 'sign_3')
         # print(f'FINISHED : {image} ')
