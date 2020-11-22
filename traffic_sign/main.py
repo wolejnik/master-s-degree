@@ -15,6 +15,7 @@ def remove_background(image):
 
     # Create a mask holder
     mask = np.zeros(imgo.shape[:2], np.uint8)
+    mask = cv2.GaussianBlur(mask, (0, 0), sigmaX=2, sigmaY=2, borderType=cv2.BORDER_DEFAULT)
 
     # Grab Cut the object
     bgdModel = np.zeros((1, 65), np.float64)
@@ -39,7 +40,7 @@ def remove_background(image):
     cv2.imwrite(f'{image}_not_bg.png', final)
 
 
-def getFilenames(folder):
+def get_filenames(folder):
     """
     :param folder: selected name folder of which  loading a files
     :return: array with names files of which  selected a folder
@@ -57,7 +58,7 @@ def getFilenames(folder):
 
 if __name__ == "__main__":
 
-    images = getFilenames('sign_11')
+    images = get_filenames('sign_2')
     print(images)
     for image in images:
         remove_background(image)
