@@ -2,3 +2,4 @@ traffic_sign/data/
 traffic_sign/data_(backup)
 traffic_sign/Olejnik_Wojciech_EC_Lab3.pdf
 package-lock.json
+traffic_sign/data/*/*
