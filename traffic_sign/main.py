@@ -47,9 +47,9 @@ def get_filenames(folder, is_bg=False):
     """
 
     if is_bg:
-        filenames = [img for img in glob.glob(f'data/{folder}/*_not_bg.png')]
+        filenames = [img for img in glob.glob(f'data_(backup)/{folder}/*_not_bg.png')]
     else:
-        filenames = [img for img in glob.glob(f'data/{folder}/*.png')]
+        filenames = [img for img in glob.glob(f'data_(backup)/{folder}/*.png')]
 
     filenames.sort()
 
@@ -87,14 +87,14 @@ def binarize_image(iamge_src):
 
 if __name__ == "__main__":
 
-    images = get_filenames('sign_1')
-    print(images)
-    for image in images:
-        remove_background(image)
-        print(f'FINISHED : {image} ')
+    # images = get_filenames('sign_10')
+    # print(images)
+    # for image in images:
+    #     remove_background(image)
+    #     print(f'FINISHED : {image} ')
 
-    images = get_filenames('sign_1', True)
-    print(f'{images}')
-    for image in images:
-        binarize_image(image)
-        print(f'FINISHED : {image} ')
+    # images = get_filenames('sign_1', True)
+    # print(f'{images}')
+    # for image in images:
+    #     binarize_image(image)
+    #     print(f'FINISHED : {image} ')
