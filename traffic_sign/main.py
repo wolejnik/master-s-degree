@@ -85,6 +85,11 @@ def binarize_image(iamge_src):
     # plt.show()
 
 
+# Descriptors
+def area_desc(img):
+    return np.count_nonzero(img == 255)
+
+
 if __name__ == "__main__":
 
     # images = get_filenames('sign_10')
@@ -93,8 +98,18 @@ if __name__ == "__main__":
     #     remove_background(image)
     #     print(f'FINISHED : {image} ')
 
-    images = get_filenames('sign_10', True)
-    print(f'{images}')
-    for image in images:
-        binarize_image(image)
-        print(f'FINISHED : {image} ')
+    # images = get_filenames('sign_10', True)
+    # print(f'{images}')
+    # for image in images:
+    #     binarize_image(image)
+    #     print(f'FINISHED : {image} ')
+
+    test_img = cv2.imread('./data/sign_7/026_1_0002_not_bg_binarized.png')
+    cv2.imshow('image', test_img)
+    cv2.waitKey(0)
+
+    # Destroying present windows on screen
+    cv2.destroyAllWindows()
+
+    print("------Wartości deskryptorów------")
+    print("Area: ", area_desc(test_img))
