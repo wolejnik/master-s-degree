@@ -89,6 +89,19 @@ def binarize_image(iamge_src):
 def area_desc(img):
     return np.count_nonzero(img == 255)
 
+def perimeter(img):
+    # https: // opencv - python - tutroals.readthedocs.io / en / latest / py_tutorials / py_imgproc / py_canny / py_canny.html  #
+    edges = cv2.Canny(img, 10, 200)
+
+    plt.subplot(121), plt.imshow(img, cmap='gray')
+    plt.title('Original Image'), plt.xticks([]), plt.yticks([])
+    plt.subplot(122), plt.imshow(edges, cmap='gray')
+    plt.title('Perimeter'), plt.xticks([]), plt.yticks([])
+
+    plt.show()
+    cv2.waitKey(0)
+
+    return np.count_nonzero(edges == 255)
 
 if __name__ == "__main__":
 
@@ -105,11 +118,12 @@ if __name__ == "__main__":
     #     print(f'FINISHED : {image} ')
 
     test_img = cv2.imread('./data/sign_7/026_1_0002_not_bg_binarized.png')
-    cv2.imshow('image', test_img)
+    # cv2.imshow('image', test_img)
     cv2.waitKey(0)
 
     # Destroying present windows on screen
     cv2.destroyAllWindows()
 
     print("------Wartości deskryptorów------")
-    print("Area: ", area_desc(test_img))
+    print(f'Area: {area_desc(test_img)}')
+    print(f'Perimeter : {perimeter(test_img)}')
