@@ -86,7 +86,7 @@ def binarize_image(iamge_src):
 
 
 # Descriptors
-def area_desc(img):
+def area(img):
     return np.count_nonzero(img == 255)
 
 def perimeter(img):
@@ -102,6 +102,14 @@ def perimeter(img):
     cv2.waitKey(0)
 
     return np.count_nonzero(edges == 255)
+
+
+def roundness(img):
+    area = np.count_nonzero(img == 255)
+    edges = cv2.Canny(img, 30, 200)
+    perimeter = np.count_nonzero(edges == 255)
+
+    return np.power(perimeter, 2) / (4 * np.pi * area)
 
 if __name__ == "__main__":
 
@@ -125,5 +133,6 @@ if __name__ == "__main__":
     cv2.destroyAllWindows()
 
     print("------Wartości deskryptorów------")
-    print(f'Area: {area_desc(test_img)}')
+    print(f'Area: {area(test_img)}')
     print(f'Perimeter : {perimeter(test_img)}')
+    print(f'Roundness : {roundness(test_img)}')
