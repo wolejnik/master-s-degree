@@ -2,6 +2,8 @@ import numpy as np
 import cv2
 import glob
 from matplotlib import pyplot as plt
+from os import listdir
+from os.path import isfile, join
 
 def remove_background(image):
     """
@@ -86,10 +88,15 @@ def binarize_image(iamge_src):
 
 
 # Descriptors
-def area(img):
-    return np.count_nonzero(img == 255)
+def area_desc(img):
+    ret, thresh = cv2.threshold(img, 50, 255, cv2.THRESH_BINARY)
+    contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    # return np.count_nonzero(img == 255)
+    area = cv2.contourArea(contours[0])
+    return area
 
-def perimeter(img):
+
+def perimeter_desc(img):
     # https: // opencv - python - tutroals.readthedocs.io / en / latest / py_tutorials / py_imgproc / py_canny / py_canny.html  #
     edges = cv2.Canny(img, 10, 200)
 
@@ -104,35 +111,179 @@ def perimeter(img):
     return np.count_nonzero(edges == 255)
 
 
-def roundness(img):
+def roundness_desc(img):
     area = np.count_nonzero(img == 255)
-    edges = cv2.Canny(img, 30, 200)
-    perimeter = np.count_nonzero(edges == 255)
-
+    edged = cv2.Canny(img, 30, 200)
+    perimeter = np.count_nonzero(edged == 255)
     return np.power(perimeter, 2) / (4 * np.pi * area)
+
+
+def compactness_desc(img):
+    area = np.count_nonzero(img == 0)
+    edged = cv2.Canny(img, 30, 200)
+    perimeter = np.count_nonzero(edged == 255)
+    return np.power(perimeter, 2) / area
+
+def diameter_desc(img):
+    ret, thresh = cv2.threshold(img, 50, 255, cv2.THRESH_BINARY)
+    contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    (x, y), radius = cv2.minEnclosingCircle(contours[0])
+    return radius * 2
+
+
+# https://www.learnopencv.com/convex-hull-using-opencv-in-python-and-c/
+def convex_hull_desc(img):
+    ret, thresh = cv2.threshold(img, 50, 255, cv2.THRESH_BINARY)
+    contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    hull = []
+    # calculate points for each contour
+    for i in range(len(contours)):
+        hull.append(cv2.convexHull(contours[i], False))
+    drawing = np.zeros((thresh.shape[0], thresh.shape[1], 3), np.uint8)
+    for i in range(len(contours)):
+        color_contours = (0, 255, 0)
+        color = (255, 0, 0)
+        # draw ith contour
+        cv2.drawContours(drawing, contours, i, color_contours, 1, 8, hierarchy)
+        # draw ith convex hull object
+        cv2.drawContours(drawing, hull, i, color, 1, 8)
+    # plt.imshow(drawing, cmap=plt.cm.gray)
+    # plt.show()
+    edged = cv2.Canny(drawing, 30, 200)
+    return np.count_nonzero(edged == 255)
+
+
+def example_of_descs(img):
+    print("------Wartości deskryptorów------")
+    print("Pole powierzchni: ", area_desc(img))
+    print("Obwód: ", perimeter_desc(img))
+    print("Kołowość: ", roundness_desc(img))
+    print("Zwartość: ", compactness_desc(img))
+    print("Mimośród: ", diameter_desc(img))
+    print("Obwód powłoki wypukłej: ", convex_hull_desc(img))
+    print("------Wartości deskryptorów------")
+
+
+def fit(train):
+    train_learned = []
+    area = []
+    per = []
+    round = []
+    compact = []
+    convex = []
+    diameter = []
+    for i, item in enumerate(train):
+        area.append(area_desc(item))
+        per.append(perimeter_desc(item))
+        round.append(roundness_desc(item))
+        compact.append(compactness_desc(item))
+        convex.append(convex_hull_desc(item))
+        diameter.append(diameter_desc(item))
+    train_learned.append(area)
+    train_learned.append(per)
+    train_learned.append(round)
+    train_learned.append(compact)
+    train_learned.append(convex)
+    train_learned.append(diameter)
+    return train_learned
+
+def enc_idx(i):
+    n = ["sign_1", "sign_2", "sign_3", "sign_4", "sign_5", "sign_6", "sign_7", "sign_8", "sign_9", "sign_10"]
+    return n[i]
+
+
+def find_nearest(array, value):
+    array = np.asarray(array)
+    idx = (np.abs(array - value)).argmin()
+    return idx
+
+
+def classify(img, train, name):
+    tmp = [area_desc(img), perimeter_desc(img), roundness_desc(img), compactness_desc(img), convex_hull_desc(img), diameter_desc(img)]
+    res = [enc_idx(find_nearest(train[0], tmp[0])), enc_idx(find_nearest(train[1], tmp[1])),
+          enc_idx(find_nearest(train[2], tmp[2])), enc_idx(find_nearest(train[3], tmp[3])),
+          enc_idx(find_nearest(train[4], tmp[4])), enc_idx(find_nearest(train[5], tmp[5]))]
+    out = []
+    # print("Deskryptor - pole powierzchni: ", res[0])
+    # print("Deskryptor - obwód: ", res[1])
+    # print("Deskryptor - kołowość: ", res[2])
+    # print("Deskryptor - zwartość: ", res[3])
+    # print("Deskryptor - obwód powłoki wypukłej: ", res[4])
+    # print("Mimośród: ", res[5])
+
+    out.append(1) if res[0] == name else out.append(0)
+    out.append(1) if res[1] == name else out.append(0)
+    out.append(1) if res[2] == name else out.append(0)
+    out.append(1) if res[3] == name else out.append(0)
+    out.append(1) if res[4] == name else out.append(0)
+    out.append(1) if res[5] == name else out.append(0)
+    return out
+
+
+def score(scores):
+    # print(scores)
+    area = 0
+    peri = 0
+    roun = 0
+    comp = 0
+    conv = 0
+    diame = 0
+    for i in range(len(scores)):
+        area += scores[i][0]
+        peri += scores[i][1]
+        roun += scores[i][2]
+        comp += scores[i][3]
+        conv += scores[i][4]
+        diame += scores[i][5]
+
+    area = area / len(scores) * 100
+    peri = peri / len(scores) * 100
+    roun = roun / len(scores) * 100
+    comp = comp / len(scores) * 100
+    conv = conv / len(scores) * 100
+    diame = diame / len(scores) * 100
+    return [area, peri, roun, comp, conv, diame]
+
 
 if __name__ == "__main__":
 
-    # images = get_filenames('sign_10')
-    # print(images)
-    # for image in images:
-    #     remove_background(image)
-    #     print(f'FINISHED : {image} ')
+    train = []
+    results = []
+    subDirs = ["sign_1", "sign_2", "sign_3", "sign_4", "sign_5", "sign_6", "sign_7", "sign_8", "sign_9", "sign_10"]
+    binPath = './TEST_DATA'
+    for dir in subDirs:
+        pathToBinDir = f'{binPath}/{dir}'
+        files = [f for f in listdir(pathToBinDir) if isfile(join(pathToBinDir, f))]
+        for idx, file in enumerate(files):
+            pathToBinFile = f'{pathToBinDir}/{file}'
+            img = cv2.imread(pathToBinFile, 0)
+            if idx == 0:
+                train.append(img)
+                break
 
-    # images = get_filenames('sign_10', True)
-    # print(f'{images}')
-    # for image in images:
-    #     binarize_image(image)
-    #     print(f'FINISHED : {image} ')
+    clf = fit(train)
+    # print(clf)
+    # classify(img_test, clf)
 
-    test_img = cv2.imread('./data/sign_7/026_1_0002_not_bg_binarized.png')
-    # cv2.imshow('image', test_img)
-    cv2.waitKey(0)
+    for dir in subDirs:
+        pathToBinDir = f'{binPath}/{dir}'
+        files = [f for f in listdir(pathToBinDir) if isfile(join(pathToBinDir, f))]
+        for idx, file in enumerate(files):
+            pathToBinFile = f'{pathToBinDir}/{file}'
+            img = cv2.imread(pathToBinFile, 0)
+            if idx != 0:
+                results.append(classify(img, clf, dir))
 
-    # Destroying present windows on screen
-    cv2.destroyAllWindows()
+    print(f' results : {results}')
+    scores = score(results)
+    print("Pole powierzchni: ", scores[0], "%")
+    print("Długość obwodu: ", scores[1], "%")
+    print("Kołowość: ", scores[2], "%")
+    print("Zwartość: ", scores[3], "%")
+    # print("Poprawność - obwód powłoki wypukłej: ", scores[4], "%")
+    print("Mimośród: ", scores[5], "%")
 
-    print("------Wartości deskryptorów------")
-    print(f'Area: {area(test_img)}')
-    print(f'Perimeter : {perimeter(test_img)}')
-    print(f'Roundness : {roundness(test_img)}')
+    #plt.imshow(img, cmap=plt.cm.gray)
+    #plt.show()
+    #print(img)
+    #example_of_descs(img)
