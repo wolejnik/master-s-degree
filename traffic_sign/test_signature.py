@@ -41,7 +41,7 @@ def fit_signature(train):
 
 def interpolate_to_fixed_size(given_list, default_size):
     for i in range(len(given_list)):
-        old_indices = np.arange(0, len(given_list[i]))
+        # old_indices = np.arange(0, len(given_list[i]))
         new_indices = np.linspace(0, len(given_list[i]) - 1, default_size)
         # spl = UnivariateSpline(old_indices, given_list[i])
         x = np.linspace(0, 1, 200)
