@@ -15,6 +15,12 @@ from scipy.spatial import distance
 
 
 def fourier_desc(img, size):
+    """
+
+    :param img:
+    :param size:
+    :return:
+    """
     img_fft = np.fft.fft2(img)
     spectrum = np.log(1 + np.abs(img_fft))
 
