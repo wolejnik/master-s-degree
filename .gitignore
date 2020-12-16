@@ -3,3 +3,8 @@ traffic_sign/data_(backup)
 traffic_sign/Olejnik_Wojciech_EC_Lab3.pdf
 package-lock.json
 traffic_sign/data/*/*
+bathymatric_data_Interpolation/UTM-brama.txt
+bathymatric_data_Interpolation/UTM-obrotnica.txt
+bathymatric_data_Interpolation/wraki-utm.txt
+bathymatric_data_Interpolation/out.csv
+bathymatric_data_Interpolation/wraki_samochodów_outout
