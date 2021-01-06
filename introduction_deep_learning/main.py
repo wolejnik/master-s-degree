@@ -72,12 +72,40 @@ if __name__ == '__main__':
     trainX, trainY, testX, testY = load_set()
     trainX, testX = preprocessing(trainX, testX)
 
-    # #creating model
-    model = create_model()
-    model.fit(trainX, trainY, epochs=10, batch_size=256, verbose=1)
-    model.save("model_mlp.h5")
+    # # #creating model
+    # model = create_model()
+    # model.fit(trainX, trainY, epochs=10, batch_size=256, verbose=1)
+    # model.save("model_mlp.h5")
+    #
+    # # # testing model
+    # res = model.evaluate(testX, (testY))
+    # print(res)
 
-    # # testing model
-    res = model.evaluate(testX, (testY))
-    print(res)
+    #tests
+    # act = ['sigmoid', 'hard_sigmoid', 'tanh', 'linear', 'relu', 'softmax']
+    # lr = [0.001, 0.01, 0.1]
+    # optimizers = ['SGD', 'Adam', 'Adadelta', 'Adagrad', 'RMSprop']
+    # eps = [10, 100, 300]
+    # models = []
+    # configuration = []
+    # for a in act:
+    #     for o in optimizers:
+    #         for l in lr:
+    #             models.append(create_model(a, o, l))
+    #             configuration.append([a, o, l])
+    # for m in models:
+    #     m.fit(trainX, trainY, epochs=eps[2], batch_size=256, verbose=1)
+    #
+    # f = open('results_epochs300.csv', 'w')
+    # for i, m in enumerate(models):
+    #     f.write(str(m.evaluate(testX, (testY))[0]) + ",")
+    #     f.write(str(m.evaluate(testX, (testY))[1]) + ",")
+    #     f.write(configuration[i][0] + ",")
+    #     f.write(configuration[i][1] + ",")
+    #     f.write(str(configuration[i][2]) + '\n')
+    #
+    # f.close()
 
+    # model on image
+    img = load_preprocess_image('sample_image_rotate.png', 4)
+d
