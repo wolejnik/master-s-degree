@@ -8,3 +8,7 @@ bathymatric_data_Interpolation/UTM-obrotnica.txt
 bathymatric_data_Interpolation/wraki-utm.txt
 bathymatric_data_Interpolation/out.csv
 bathymatric_data_Interpolation/wraki_samochodów_outout
+geopandas_test/powiaty.gpkg
+geopandas_test/powiaty_natura_2000.csv
+geopandas_test/country.geojson
+geopandas_test/baza_geopackage.gpkg
