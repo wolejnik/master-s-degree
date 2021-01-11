@@ -2,6 +2,15 @@ import numpy as np
 import pandas as pd
 from scipy.io import arff
 
+def calculate_accuracy(df):
+    attrs = df.iloc[:, 0:-1].columns
+    unique_rows = df.drop_duplicates(keep='first')
+    conflict_rows = unique_rows[unique_rows.duplicated(subset=attrs, keep=False)]
+    unique_count = len(unique_rows.axes[0])
+    conflict_count = len(conflict_rows.axes[0])
+    accuracy = 1 - conflict_count / unique_count
+    return accuracy
+
 # Zadanie 1 Wczytaj dane z pliku ARFF.
 data, meta = arff.loadarff('data/mushroom.arff')
 df1 = pd.DataFrame(data)
@@ -63,7 +72,32 @@ print("Istotność atrybutu: " + df.columns[2] + " " + str(r2))
 print("Istotność atrybutu: " + df.columns[3] + " " + str(r3))
 print("Istotność atrybutu: " + df.columns[4] + " " + str(r4))
 
-# Zadanie 5
+# Zadanie 5 Wyznaczy najkrótszy redukt, gwarantujący założony poziom jakości zbioru.
+
+df_tmp = df.copy()
+accuracy = calculate_accuracy(df_tmp)
+threshold=0.6
+while accuracy > threshold:
+    df_before_last_reduction = df_tmp.copy()
+
+    relevances = []
+    for column_name in df_tmp.iloc[:, 0:-1].columns:
+        reduct = df_tmp.drop([column_name], axis=1)
+        attrs = reduct.iloc[:, 0:-1].columns
+        unique_rows = reduct.drop_duplicates(keep='first')
+        conflict_rows = unique_rows.duplicated(subset=attrs, keep='first')
+        unique_count = len(unique_rows.axes[0])
+        conflict_count = len(conflict_rows.axes[0])
+        relevance = conflict_count / unique_count
+        relevances.append(relevance)
+    column_index_to_drop =  np.argmin(relevances)
+
+    column_name_to_drop = df_tmp.iloc[:, 0:-1].columns[column_index_to_drop]
+    df_tmp = df_tmp.drop(column_name_to_drop, axis=1)
+    accuracy = calculate_accuracy(df_tmp)
+
+# df.drop_duplicates(subset=['population', 'cap-shape', 'cap-surface', 'cap-color'], keep=False)
+print(f'Najkrótszy redukt\n{df_before_last_reduction}')
+# Najkrótszy redukt => spore-print-color,  population,  habitat,  class
 
 # Zadanie 6
-
