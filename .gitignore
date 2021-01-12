@@ -12,3 +12,5 @@ geopandas_test/powiaty.gpkg
 geopandas_test/powiaty_natura_2000.csv
 geopandas_test/country.geojson
 geopandas_test/baza_geopackage.gpkg
+traffic_sign/data_without_bg/*
+
