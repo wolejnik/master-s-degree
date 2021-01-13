@@ -2,13 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e2e108ce-d600-4593-b33a-fa25b341ea42" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../geopandas_test/geopandas_zad_1.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../geopandas_test/geopandas_zad_1.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../traffic_sign/binarization.py" beforeDir="false" afterPath="$PROJECT_DIR$/../traffic_sign/binarization.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../traffic_sign/test_signature.py" beforeDir="false" afterPath="$PROJECT_DIR$/../traffic_sign/test_signature.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../traffic_sign/unl_fourier.py" beforeDir="false" afterPath="$PROJECT_DIR$/../traffic_sign/unl_fourier.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -70,6 +79,7 @@
       <workItem from="1609855801766" duration="4852000" />
       <workItem from="1609871802501" duration="653000" />
       <workItem from="1609919208843" duration="353000" />
+      <workItem from="1610391326483" duration="56000" />
     </task>
     <servers />
   </component>
