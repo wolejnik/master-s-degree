@@ -89,7 +89,7 @@ if __name__ == "__main__":
 
     clf = fit_signature(train)
 
-    folders = ["sign_1", "sign_2", "sign_3", "sign_4", "sign_5", "sign_6", "sign_7", "sign_8", "sign_9", "sign_10"]
+    folders = ["sign_1", "sign_2", "sign_3", "sign_4", "sign_5", "sign_6", "sign_7", "sign_8", "sign_9", "sign_10", "sign_11"]
     results = []
     for name in folders:
         for i in range(4, 14):
