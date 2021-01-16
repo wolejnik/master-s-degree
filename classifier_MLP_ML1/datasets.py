@@ -32,6 +32,15 @@ def make_spiral(p, noise=1):
     y = np.concatenate((np.zeros(p), np.ones(p)))
     x = x + np.random.randn(*x.shape) * noise
     return x, y
+    
+def make_halfmoon(p, noise=0.0):
+    t = np.linspace(np.pi/2, 3*np.pi/2, p)
+    x1 = np.array([np.cos(t), np.sin(t)]).T
+    x2 = np.array([np.cos(t)/2, np.sin(t)/2]).T
+    x = np.vstack((x1, x2))
+    y = np.concatenate((np.zeros(p), np.ones(p)))
+    x = x + np.random.randn(*x.shape) * noise
+    return x, y
 
 
 def plot_decision_boundry(data, classifier):
