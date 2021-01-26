@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ccdb6e5a-6a48-4d24-b69b-05748cb23a63" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../geopandas_test/geopandas_zad_1.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../geopandas_test/geopandas_zad_1.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../naive_bayes_DM/naive_bayes.py" beforeDir="false" afterPath="$PROJECT_DIR$/../naive_bayes_DM/naive_bayes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../naive_bayes_DM/prepare_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/../naive_bayes_DM/prepare_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +30,35 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
+  <component name="RunManager">
+    <configuration name="lab2_2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="package_GDAL" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/lab2_2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.lab2_2" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -41,6 +72,11 @@
       <workItem from="1610921618831" duration="76000" />
       <workItem from="1610921881628" duration="44000" />
       <workItem from="1610984720266" duration="13000" />
+      <workItem from="1611428014043" duration="902000" />
+      <workItem from="1611512862892" duration="94000" />
+      <workItem from="1611522477234" duration="1147000" />
+      <workItem from="1611523642908" duration="599000" />
+      <workItem from="1611589608872" duration="22000" />
     </task>
     <servers />
   </component>
@@ -58,5 +94,8 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/package_GDAL$lab2_2.coverage" NAME="lab2_2 Coverage Results" MODIFIED="1611522741349" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
