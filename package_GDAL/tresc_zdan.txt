@@ -1,0 +1,24 @@
+Zadanie 1. Na podstawie biblioteki GDAL dokonaj reklasyfikacji nachylenia gruntu dla obszaru jeziora Szmaragdowego (puszcza_bukowa_szmaragdowe.asc). Użyj do tego programu napisanego w Python.
+
+A.
+
+Klasy do reklasyfikacji [stopnie]:
+
+1: <=5
+
+2: >5 and <=10
+
+3: >10 and <=20
+
+4: >20
+
+ Oblicz powierzchnię poszczególnych klas
+Dokonaj wektoryzacji danych
+Zaprezentuj wyniki w postaci graficznej
+
+
+
+Zadanie 2. Za pomocą poznanych bibliotek python dokonaj wektoryzacji obrazu rastrowego Jeziora Szmaragdowego.
+
+w postaci regularnej siatki punktów w układzie współrzędnych WGS84/UTM-33N (EPSG-32633). Siatkę zapisz w bazie danych geopackage (szmaragdowe.gpkg),
+w postaci izolinii oddalonych (interwał) od siebie o 1 m (gdal_contur) – w układzie współrzędnych EPSG:2180
